@@ -69,6 +69,9 @@ Write-Host "Enable long path behavior"
 # See https://docs.microsoft.com/en-us/windows/desktop/fileio/naming-a-file#maximum-path-length-limitation
 Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem' -Name 'LongPathsEnabled' -Value 1
 
+Write-Host "Enabling File and Printer sharing / IPC"
+$null = netsh advfirewall firewall set rule group="File and Printer Sharing" new enable=Yes
+
 # Expand disk size of OS drive
 $driveLetter = "C"
 $size = Get-PartitionSupportedSize -DriveLetter $driveLetter
