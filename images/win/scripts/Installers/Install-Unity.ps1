@@ -39,3 +39,6 @@ $platformArchPath = Start-DownloadWithRetry -Url $platformUrl -Name "android-pla
 Extract-7Zip -Path $platformArchPath -DestinationPath "${sdkInstallRoot}\SDK\platforms"
 Rename-Item "${sdkInstallRoot}\SDK\platforms\android-9" "android-28"
 
+# Add Android 10 (API 29) platform tools.
+[System.Environment]::SetEnvironmentVariable("JAVA_HOME", "${sdkInstallRoot}\Tools\OpenJDK\Windows", [System.EnvironmentVariableTarget]::Machine)
+Echo 'y' | & "${sdkInstallRoot}\SDK\tools\bin\sdkmanager.bat" "platform-tools" "platforms;android-29"
