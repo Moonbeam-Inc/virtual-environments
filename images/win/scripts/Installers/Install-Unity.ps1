@@ -15,6 +15,12 @@ Install-Binary -Url "https://download.unity3d.com/download_unity/${UNITY_DOWNLOA
 
 $sdkInstallRoot = 'C:\Program Files\Unity\Editor\Data\PlaybackEngines\AndroidPlayer'
 
+# OpenJDK must be fetched separately. This version is valid for Unity 2021.3.2f1.
+$jdkUrl = "https://github.com/AdoptOpenJDK/openjdk8-releases/releases/download/jdk8u172-b11/OpenJDK8_x64_Win_jdk8u172-b11.zip"
+$jdkArchPath = Start-DownloadWithRetry -Url $jdkUrl -Name "jdk.zip"
+Extract-7Zip -Path $jdkArchPath -DestinationPath "${sdkInstallRoot}"
+Rename-Item "${sdkInstallRoot}\jdk8u172-b11" "OpenJDK"
+
 # Android SDK and NDK must be fetched separately. These versions are valid for Unity 2021.3.2f1.
 $sdkToolsUrl = "https://dl.google.com/android/repository/sdk-tools-windows-4333796.zip"
 $sdkToolsArchPath = Start-DownloadWithRetry -Url $sdkToolsUrl -Name "android-sdk-tools.zip"
